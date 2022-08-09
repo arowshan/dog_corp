@@ -3,17 +3,21 @@ const getUsers = () => {
 
     fetch('https://reqres.in/api/users?page=1')
     .then(response => response.json())
-    .then(res => {
+    .then(async(res) => {
       const data = res['data'];
-      const cards = data.map(user => {
+      const cards = await Promise.all(data.map(async(user) => {
         const name = `${user['first_name']} ${user['last_name']}`;
-        const imgUrl = user['avatar'];
-        return createCard(name, imgUrl)
-      });
-      
-
+        const imgUrl = await getDogImage();
+        return createCard(name, imgUrl);
+      }));
       cardsContainer.innerHTML = cards.join('');
     })
+}
+
+const getDogImage = async() => {
+  return fetch('https://dog.ceo/api/breeds/image/random')
+  .then(response => response.json())
+  .then(data => data['message'])
 }
 
 const createCard = (name, imgUrl) => {
