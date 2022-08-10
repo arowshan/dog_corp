@@ -5,11 +5,12 @@ const getUsers = () => {
     .then(response => response.json())
     .then(async(res) => {
       const data = res['data'];
-      const cards = await Promise.all(data.map(async(user) => {
+      const cards = [];
+      for (let user of data) {
         const name = `${user['first_name']} ${user['last_name']}`;
         const imgUrl = await getDogImage();
-        return createCard(name, imgUrl);
-      }));
+        cards.push(createCard(name, imgUrl));
+      }
       cardsContainer.innerHTML = cards.join('');
     })
 }
