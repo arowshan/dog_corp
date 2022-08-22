@@ -18,7 +18,7 @@ const getUsers = () => {
 
 const createCard = (name, imgUrl) => {
     return `<span class="card">
-      <img src=${imgUrl} alt="Girl in a jacket" width="200" height="200"/> 
+      <img src=${imgUrl} alt="dog image" width="200" height="200"/> 
       <h3>${name}</h3>
     </span>`
 }
